@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+  servlet:
+    session:
+      timeout: 3600s
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://root:7390@localhost:27017/admin
+      authentication-database: admin
+      database: admin
+  thymeleaf:
+    cache: false

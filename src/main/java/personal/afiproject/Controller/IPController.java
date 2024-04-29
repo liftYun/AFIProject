@@ -8,4 +8,5 @@ public class IPController {
     @GetMapping("/afi/ippTest")
     public String ippTest(){ return "ippTest";}
 
+
 }

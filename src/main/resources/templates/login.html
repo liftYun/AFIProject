@@ -8,16 +8,26 @@
 <div>
     <form action="/user/login" method="post">
         <div>
-            <input type="text" id="user_id" name="user_id" pattern="[a-zA-Z0-9]{8,20}" required>
+            <input type="text" id="userId" name="userId" pattern="[a-zA-Z0-9]{8,20}" required>
         </div>
         <div>
-            <input type="password" id="user_pw" name="user_pw" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&_=~|\\/?:;.])[a-zA-Z0-9!@#$%^&_=~|\\/?:;.]{8,20}$" required>
+            <input type="password" id="userPw" name="userPw" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&_=~|\\/?:;.])[a-zA-Z0-9!@#$%^&_=~|\\/?:;.]{8,20}$" required>
         </div>
         <div>
             <button type="submit">로그인</button>
         </div>
+        <div>
+            <button><a href="/user/register">회원가입</a></button>
+        </div>
     </form>
 </div>
-
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var error = [[${error}]];
+    if (error != null && error !== '') {
+        alert(error);
+    }
+    /*]]>*/
+</script>
 </body>
 </html>

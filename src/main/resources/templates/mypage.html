@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mypage</title>
+</head>
+<body>
+<form action="/user/update" method="post">
+    <div>
+        <label for="userId">아이디</label>
+        <input type="text" id="userId" name="userId" th:value="${loginUserDTO.getUserId()}" disabled>
+        <input type="hidden" name="userId" th:value="${loginUserDTO.getUserId()}" readonly>
+    </div>
+    <div>
+        <a href="/user/updatePw">비밀번호 변경</a>
+    </div>
+    <div>
+        <label for="userName">이름</label>
+        <input type="text" id="userName" name="userName" th:value="${loginUserDTO.getUserName()}">
+    </div>
+    <div>
+        <label for="userPhone">휴대폰번호</label>
+        <input type="text" id="userPhone" name="userPhone" th:value="${loginUserDTO.getUserPhone()}">
+    </div>
+    <div>
+        <label for="userBirthday">생년월일</label>
+        <input type="text" id="userBirthday" name="userBirthday" th:value="${loginUserDTO.getUserBirthday()}">
+    </div>
+    <div>
+        <label for="userGender">성별</label>
+        <input type="text" id="userGender" name="userGender" th:value="${loginUserDTO.getUserGender()}">
+    </div>
+    <div>
+        <button type="submit">회원정보 수정</button>
+        <button><a href="/user/delete">회원 탈퇴하기</a></button>
+    </div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var error = [[${error}]];
+    if (error != null && error !== '') {
+        alert(error);
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

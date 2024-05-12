@@ -8,10 +8,26 @@
 <div>
     <h2>당신의 투자성향을 체크해보세요!</h2>
 
-    <span><a href="/user/login">로그인</a></span>
-    <span><a href="/user/register">회원가입</a></span>
-    <span><a href="/afi/ippTest">투자성향 체크</a></span>
+    <div th:if="${loginUser == null}">
+        <span><a href="/user/login">로그인</a></span>
+        <span><a href="/user/register">회원가입</a></span>
+        <span><a href="/user/loginError">투자성향 체크</a></span>
+        <span><a href="/user/loginError">투자상품 추천</a></span>
+    </div>
+    <div th:if="${loginUser != null}">
+        <span><a href="/user/logout">로그아웃</a></span>
+        <span><a href="/afi/ippTest">투자성향 체크</a></span>
+        <span><a href="/afi/recoP">투자상품 추천</a></span>
+        <span><a href="/user/mypage">마이페이지</a></span>
+    </div>
 </div>
-
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var error = [[${error}]];
+    if (error != null && error !== '') {
+        alert(error);
+    }
+    /*]]>*/
+</script>
 </body>
 </html>

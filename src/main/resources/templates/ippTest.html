@@ -5,52 +5,63 @@
     <title>Inverstment Propencity</title>
 </head>
 <body>
-1. 연령대
-2. 투자 경험(상품)
-3. 투자 기간
-4. 금융상품에 대한 이해도
-5. 원금 손실에 대한 태도
-6. 투자 자금의 비중
-7. 투자자금 출처
-
 <form action="/afi/ippAsk" method="post">
     <div>
         <label for="user_age"><strong>1. 연령대 : </strong></label>
-        <select name="user_age" id="user_age">
-            <option value="" selected>연령대를 선택하세요</option>
-            <option value="19">19세 이하</option>
-            <option value="20">20~30</option>
-            <option value="31">31~40</option>
-            <option value="41">41~50</option>
-            <option value="51">51~60</option>
-            <option value="61">61~64</option>
-            <option value="65">65세 이상</option>
-        </select>
+            <input id="user_age" type="number"  min="1" max="120" value="25" required>
     </div>
     <div>
         <p><strong>2. 투자 경험이 있는 상품을 선택하세요.(중복 가능)</strong></p>
-        <input type="checkbox" name="risk" value="vlRiskP">① 은행의 예·적금, 국채, 지방채, 보증채, MMF, CMA 등 <br>
-        <input type="checkbox" name="risk" value="lRiskP">② 금융채, 신용도가 높은 회사채, 채권형펀드, 원금보존추구형ELS 등 <br>
-        <input type="checkbox" name="risk" value="mRiskP">③ 신용도 중간 등급의 회사채, 원금의 일부만 보장되는 ELS, 혼합형펀드 등 <br>
-        <input type="checkbox" name="risk" value="hRiskP">④ 신용도가 낮은 회사채, 주식, 원금이 보장되지 않는 ELS, 시장수익률 수준의 수익을 추구하는 주식형펀드 등
+        <input type="checkbox" name="risk" value="3.1">① 은행의 예·적금, 국채, 지방채, 보증채, MMF, CMA 등 <br>
+        <input type="checkbox" name="risk" value="6.2">② 금융채, 신용도가 높은 회사채, 채권형펀드, 원금보존추구형ELS 등 <br>
+        <input type="checkbox" name="risk" value="9.3">③ 신용도 중간 등급의 회사채, 원금의 일부만 보장되는 ELS, 혼합형펀드 등 <br>
+        <input type="checkbox" name="risk" value="12.5">④ 신용도가 낮은 회사채, 주식, 원금이 보장되지 않는 ELS, 시장수익률 수준의 수익을 추구하는 주식형펀드 등
         <br>
-        <input type="checkbox" name="risk" value="vhRiskP">⑤ ELW, 선물옵션, 시장수익률 이상의 수익을 추구하는 주식형펀드, 파생상품에 투자하는 펀드, 주식 신용거래 등
+        <input type="checkbox" name="risk" value="15.6">⑤ ELW, 선물옵션, 시장수익률 이상의 수익을 추구하는 주식형펀드, 파생상품에 투자하는 펀드, 주식 신용거래 등
         <br>
     </div>
     <div>
         <p><strong>3. 금융상품에 대해 얼마나 알고 있으신가요?</strong></p>
-        <input type="radio" name="undP" id="undP_1">① ［매우 낮은 수준］투자의사 결정을 스스로 내려본 경험이 없는 정도(예적금 포함) <br>
-        <input type="radio" name="undP" id="undP_2">② ［낮은 수준］주식과 채권의 차이를 구별할 수 있는 정도 <br>
-        <input type="radio" name="undP" id="undP_3">③ ［높은 수준］투자할 수 있는 대부분의 금융상품의 차이를 구별할수 있는 정도 <br>
-        <input type="radio" name="undP" id="undP_4">④ ［매우 높은 수준］금융상품을 비롯하여 모든 투자대상 상품의 차이를 이해할 수 있는 정도 <br>
+        <input type="radio" name="undP" id="undP_1" value="3.1">① ［매우 낮은 수준］투자의사 결정을 스스로 내려본 경험이 없는 정도(예적금 포함) <br>
+        <input type="radio" name="undP" id="undP_2" value="6.2">② ［낮은 수준］주식과 채권의 차이를 구별할 수 있는 정도 <br>
+        <input type="radio" name="undP" id="undP_3" value="9.3">③ ［높은 수준］투자할 수 있는 대부분의 금융상품의 차이를 구별할수 있는 정도 <br>
+        <input type="radio" name="undP" id="undP_4" value="12.5">④ ［매우 높은 수준］금융상품을 비롯하여 모든 투자대상 상품의 차이를 이해할 수 있는 정도 <br>
     </div>
     <div>
         <p><strong>4. 희망하는 투자 기간은 어떠한가요?</strong></p>
-        <input type="radio" name="period" id="period_1">① 6개월 이내<br>
-        <input type="radio" name="period" id="period_2">② 6개월 ~ 1년 이내<br>
-        <input type="radio" name="period" id="period_3">③ 1년 ~ 2년 이내<br>
-        <input type="radio" name="period" id="period_4">④ 2년 ~ 3년 이내<br>
-        <input type="radio" name="period" id="period_5">⑤ 2년 ~ 3년 이내<br>
+        <input type="radio" name="period" id="period_1" value="under_6m">① 6개월 이내<br>
+        <input type="radio" name="period" id="period_2" value="under_1y">② 6개월 ~ 1년 이내<br>
+        <input type="radio" name="period" id="period_3" value="under_2y">③ 1년 ~ 2년 이내<br>
+        <input type="radio" name="period" id="period_4" value="under_3y">④ 2년 ~ 3년 이내<br>
+        <input type="radio" name="period" id="period_5" value="over_3y">⑤ 3년 이상<br>
+    </div>
+    <div>
+        <p><strong>5. 투자하고자 하는 자금은 전체 자산 중 어느 정도의 비중인가요?(운용가능자산)</strong></p>
+        <input type="radio" name="importance" id="importance_1" value="15.6">① 10% 이내<br>
+        <input type="radio" name="importance" id="importance_2" value="12.5">② 10% ~ 20% 이내<br>
+        <input type="radio" name="importance" id="importance_3" value="9.3">③ 20% ~ 30% 이내<br>
+        <input type="radio" name="importance" id="importance_4" value="6.2">④ 30% ~ 40% 이내<br>
+        <input type="radio" name="importance" id="importance_5" value="3.1">⑤ 40% 이상<br>
+    </div>
+    <div>
+        <p><strong>6. 현재 수입원에 대하여 알려 주세요.</strong></p>
+        <input type="radio" name="income" id="income_1" value="9.3">① 일정한 수입이 발생되고 있으며 향후 증가 예상<br>
+        <input type="radio" name="income" id="income_2" value="7.7">② 일정한 수입이 발생되고 있으며 향후 유지 예상<br>
+        <input type="radio" name="income" id="income_3" value="6.2">③ 일정한 수입이 발생되고 있으나, 향후 감소하거나 불안정함<br>
+        <input type="radio" name="income" id="income_4" value="4.6">④ 일한 수입은 없으나, 기대 수입은 존재(프리랜서 등등)<br>
+        <input type="radio" name="income" id="income_5" value="3.1">⑤ 일정한 수입이 없음.<br>
+    </div>
+    <div>
+        <p><strong>7. 투자원금에 대해서 감수 가능한 손실 수준은 어느 것인가요?</strong></p>
+        <input type="radio" name="loss" id="loss_1" value="-6.2">① 무조건 투자원금은 보전되길 원한다.<br>
+        <input type="radio" name="loss" id="loss_2" value="6.2">② 10% 미만까지는 손실 감수가 가능하다.<br>
+        <input type="radio" name="loss" id="loss_3" value="12.5">③ 20% 미만까지는 손실 감수가 가능하다.<br>
+        <input type="radio" name="loss" id="loss_4" value="18.7">④ 기대수익만 높다면 위험이 높아도 상관 없다.<br>
+    </div>
+
+    <div>
+        <input type="reset" value="취소"><br>
+        <input type="submit" value="확인">
     </div>
 </form>
 </body>

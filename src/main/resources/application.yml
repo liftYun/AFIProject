@@ -8,8 +8,16 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://root:7390@localhost:27017/admin
-      authentication-database: admin
-      database: admin
+#      uri: mongodb://localhost:27017//user?directConnection=true
+      host: localhost
+      port: 27017
+      database: user
+      username: liftyun
+      password: liftyun
+#      authentication-database: admin
   thymeleaf:
     cache: false
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration

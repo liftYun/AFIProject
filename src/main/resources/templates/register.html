@@ -5,11 +5,11 @@
     <title>register</title>
 </head>
 <body>
-<form action="/user/register" method="post">
+<form action="/user/register" method="POST">
     <div>
         <label for="userId">ID</label>
-        <input type="text" id="userId" name="userId" pattern="[a-zA-Z0-9]{8,20}" placeholder="아이디를 입력하세요" required><br>
-        <p id="userIdCheckResult"></p>
+            <input type="text" id="userId" name="userId" pattern="[a-zA-Z0-9]{8,20}" placeholder="아이디를 입력하세요" required><br>
+            <p><small id="userIdCheckResult"></small></p>
     </div>
     <div>
         <label for="userName">이름</label>
@@ -28,7 +28,7 @@
     <div>
         <label for="userPhone">전화번호</label>
         <input type="tel" id="userPhone" name="userPhone" pattern="[0-9]{11}" placeholder="'-'를 제외하고 입력하세요" required>
-        <p id="phoneCheckResult"></p>
+        <p><small  id="userPhoneCheckResult"></small></p>
     </div>
     <div>
         <label for="userBirthday">생년월일</label>
@@ -43,7 +43,7 @@
         </select>
     </div>
     <div>
-        <button type="submit">회원가입</button>
+        <button type="submit" id="submitButton" disabled>회원가입</button>
     </div>
 </form>
 <script type="text/javascript" src="/js/registerScript.js"></script>

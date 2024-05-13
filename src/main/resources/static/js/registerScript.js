@@ -1,79 +1,81 @@
 //Id 중복 체크
-const idCheck = () => {
-    const userId = document.getElementById("userId").value;
-    const checkResult = document.getElementById("idCheckResult");
-    $.ajax({
-        type:"post",
-        url:"/user/idCheck",
-        data:{
-            "userId": userId
-        },
-        success : function (res) {
-            if(res === "ok") {
-                checkResult.style.color = "green";
-                checkResult.innerHTML = "사용가능한 ID";
-            } else if (res === "duplicate") {
-                checkResult.style.color = "red";
-                checkResult.innerHTML = "이미 사용중인 ID";
+document.addEventListener('DOMContentLoaded', function() {
+    var userIdInput = document.getElementById('userId');
+    if (userIdInput) {
+        userIdInput.addEventListener('keyup', function() {
+            var userId = this.value;
+            // 유저가 입력한 ID가 8자 이상일 때만 검증
+            if(userId.length >= 8){
+                fetch('/user/idCheck', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId: userId })
+                })
+                    .then(response => response.json()) // JSON 응답을 처리하도록 수정
+                    .then(data => {
+                        var resultElement = document.getElementById('userIdCheckResult');
+                        resultElement.innerText = data.message; // 메시지 업데이트
+                        // 상태에 따른 색상 변경
+                        if (data.status === 'success') {
+                            resultElement.style.color = 'green';
+                            document.getElementById('submitButton').disabled = false;
+                        } else {
+                            resultElement.style.color = 'red';
+                            document.getElementById('submitButton').disabled = true;
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                // 입력 길이가 8자 미만일 경우의 처리
+                var resultElement = document.getElementById('userIdCheckResult');
+                resultElement.innerText = 'ID는 8자 이상, 20자 이하 이어야 합니다.'; // 길이 경고 메시지
+                resultElement.style.color = 'red'; // 색상 변경
+                document.getElementById('submitButton').disabled = true;
             }
-        },
-        error: function (err) {
-        }
-        }
-    );
-};
-/*function idCheck() {
-    // userId input 필드에서 값 가져오기
-    const id = document.getElementById("userId").value;
-    // idCheckResult div 가져오기
-    const checkResult = document.getElementById("idCheckResult");
-
-    $.ajax({
-        type: "POST", // HTTP 요청 방식
-        url: "/user/idCheck", // 요청을 보낼 서버의 URL 주소
-        data: {
-            "userId": id // 서버로 보낼 데이터
-        },
-        success: function(res) {
-            // 요청이 성공하면 실행될 함수
-            if(res === "ok") {
-                // 중복되지 않는 경우
-                checkResult.style.color = "green";
-                checkResult.innerHTML = "사용가능한 ID입니다.";
-            } else if (res === "duplicate") {
-                // 중복되는 경우
-                checkResult.style.color = "red";
-                checkResult.innerHTML = "이미 사용중인 ID입니다.";
-            }
-        },
-        error: function(err) {
-            // 요청이 실패하면 실행될 함수
-            console.error("에러 발생: ", err);
-        }
-    });
-}*/
+        });
+    }
+});
 //휴대폰번호 중복 체크
-const phoneCheck = () => {
-    const userPhone = document.getElementById("userPhone").value;
-    const checkResult = document.getElementById("phoneCheckResult");
-    $.ajax({
-            type:"post",
-            url:"/user/phoneCheck",
-            data:{
-                "userPhone": userPhone
-            },
-            success : function (res) {
-                if(res === "ok") {
-                    checkResult.style.color = "green";
-                    checkResult.innerHTML = "사용가능한 전화번호";
-                } else if (res === "duplicate") {
-                    checkResult.style.color = "red";
-                    checkResult.innerHTML = "이미 가입된 번호ㅓ";
-                }
-            },
-            error: function (err) {
-            }
-        }
-    );
-};
+document.addEventListener('DOMContentLoaded', function() {
+    var userPhoneInput = document.getElementById('userPhone');
+    if (userPhoneInput) {
+        userPhoneInput.addEventListener('keyup', function() {
+            var userPhone = this.value;
 
+            if(userPhone.length === 11){
+                fetch('/user/phoneCheck', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userPhone: userPhone })
+                })
+                    .then(response => response.json()) // JSON 응답을 처리하도록 수정
+                    .then(data => {
+                        var resultElementP = document.getElementById('userPhoneCheckResult');
+                        resultElementP.innerText = data.message; // 메시지 업데이트
+                        // 상태에 따른 색상 변경
+                        if (data.status === 'success') {
+                            resultElementP.style.color = 'green';
+                            document.getElementById('submitButton').disabled = false;
+                        } else {
+                            resultElementP.style.color = 'red';
+                            document.getElementById('submitButton').disabled = true;
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            } else if(userPhone.length > 11){
+                var resultElement = document.getElementById('userPhoneCheckResult');
+                resultElement.innerText = '전화번호를 다시 확인해 주세요.'; // 길이 경고 메시지
+                resultElement.style.color = 'red'; // 색상 변경
+                document.getElementById('submitButton').disabled = true;
+            }
+        });
+    }
+});

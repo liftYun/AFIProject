@@ -16,7 +16,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public void save(UserDTO userDTO) {
-        System.out.println("Service");
         String hashedPassword = BCrypt.hashpw(userDTO.getUserPw(), BCrypt.gensalt());
         userDTO.setUserPw(hashedPassword);
         UserEntity userEntity = UserEntity.fromDTO(userDTO);
@@ -72,6 +71,7 @@ public class UserService {
     }
 
     public String idCheck(String userId) {
+        System.out.println("Service");
         if (userRepository.existsByUserId(userId)) {
             return "duplicate";
         } else {
@@ -86,6 +86,14 @@ public class UserService {
         } else {
             return "ok";
         }
+    }
+
+    public boolean existsByUserId(String userId) {
+        return userRepository.existsByUserId(userId);
+    }
+
+    public boolean existsByUserPhone(String userPhone) {
+        return userRepository.existsByUserPhone(userPhone);
     }
 
 

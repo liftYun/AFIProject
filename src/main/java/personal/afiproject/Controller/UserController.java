@@ -3,12 +3,16 @@ package personal.afiproject.Controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import personal.afiproject.dto.UserDTO;
 import personal.afiproject.service.UserService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -89,7 +93,6 @@ public class UserController {
                               @RequestParam("userPw") String userPw,
                               @RequestParam("userPwConfirm") String userPwConfirm,
                               RedirectAttributes redirectAttributes) {
-        System.out.println("Controller");
         if(userPw.equals(userPwConfirm)){
             userService.save(userDTO);
         }
@@ -101,16 +104,50 @@ public class UserController {
     } // 회원가입 중 비밀번호 비밀번호 확인이 같은 경우에만 회원가입 진행
 
     @PostMapping("/user/idCheck")
+    @ResponseBody
+    public ResponseEntity<?> idCheck(@RequestBody Map<String, String> payload) {
+        String userId = payload.get("userId");
+        boolean exists = userService.existsByUserId(userId);
+        Map<String, Object> response = new HashMap<>();
+        if (exists) {
+            response.put("message", "이미 존재하는 ID입니다.");
+            response.put("status", "error");
+        } else {
+            response.put("message", "사용가능한 ID입니다.");
+            response.put("status", "success");
+        }
+
+        return ResponseEntity.ok(response);
+    }
+    @PostMapping("/user/phoneCheck")
+    @ResponseBody
+    public ResponseEntity<?> phoneCheck(@RequestBody Map<String, String> payload) {
+        String userPhone = payload.get("userPhone");
+        boolean exists = userService.existsByUserPhone(userPhone);
+        Map<String, Object> response = new HashMap<>();
+        if (exists) {
+            response.put("message", "이미 가입된 전화번호입니다.");
+            response.put("status", "error");
+        } else {
+            response.put("message", "가입가능한 전화번호입니다.");
+            response.put("status", "success");
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    /*@PostMapping("/user/idCheck")
     @ResponseBody // ajax를 쓸 때 컨트롤러에서 반환되는 값을 html에 보내기 위한 용도로 사용된(body에 직접적으로 값을 포함해야한다는 의미)
     public String idCheck(@RequestParam("userId") String userId) { // ajax로 부터 userId를 받아서 서비스에 넘기며 로직을 요청한다
+        System.out.println("Controller");
         return userService.idCheck(userId);
-    }// 이미 있는 아이디의 경우 등록하지 않도록 함
+    }// 이미 있는 아이디의 경우 등록하지 않도록 함*/
 
-    @PostMapping("/user/phoneCheck")
+    /*@PostMapping("/user/phoneCheck")
     @ResponseBody
     public String phoneCheck(@RequestParam("userPhone") String userPhone) {
         return userService.phoneCheck(userPhone);
-    }// 이미 있는 전화번호의 경우 등록하지 않도록 함
+    }// 이미 있는 전화번호의 경우 등록하지 않도록 함*/
     @GetMapping("/user/registerSuccess")
     public String registerSuccess(RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("error", "회원가입에 성공했습니다.\n로그인 페이지로 이동합니다.");

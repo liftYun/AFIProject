@@ -74,7 +74,6 @@ public class UserEntity {
 // Getters and Setters
 
     public static UserEntity fromDTO(UserDTO dto) {
-        System.out.println("Entity");
         UserEntity userEntity = new UserEntity();
         userEntity.setUserId(dto.getUserId());
         userEntity.setUserName(dto.getUserName());

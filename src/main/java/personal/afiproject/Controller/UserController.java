@@ -16,24 +16,17 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/user")
+
 public class UserController {
     @Autowired
     private final UserService userService;
 
-    @GetMapping("/")
-    public String main(HttpSession session, Model model) {
-        String loginUser = (String) session.getAttribute("loginUser");
-        model.addAttribute("loginUser", loginUser);
-        return "main";
-    }
-
-    @GetMapping("/user/login")
+    @GetMapping("/login")
     public String loginForm() {return "login"; } // login 페이지 이동
 
-    @PostMapping("/user/login")
+    @PostMapping("/login")
     public String login(@ModelAttribute UserDTO userDTO,
-                        @RequestParam("userId") String userId,
-                        @RequestParam("userPw") String userPw,
                         HttpSession session,
                         RedirectAttributes redirectAttributes) {
         UserDTO loginResult = userService.login(userDTO);
@@ -49,61 +42,32 @@ public class UserController {
             return "redirect:/user/login";
         }
     }
-    /*@PostMapping("/user/login")
-    public String login(@RequestParam("userId") String userId,
-                        @RequestParam("userPw") String userPw,
-                        HttpSession session,
-                        RedirectAttributes redirectAttributes) {
-        Optional<UserEntity> userOptional = userRepository.findByUserId(userId);
 
-        if(userOptional.isPresent()) {
-            UserEntity user = userOptional.get();
-            String hashedPassword = user.getUserPw();
-
-            if(BCrypt.checkpw(userPw, hashedPassword)) {
-                session.setAttribute("loginUser", user.getUserId()); // 키 값 수정
-                // 비밀번호 정보를 제외한 DTO로 세션 정보 설정
-                *//*UserDTO loginUserInfo = UserDTO.toUserDTO(user);
-                // 비밀번호 정보는 세션에 저장하지 않습니다.
-                loginUserInfo.setUserPw(null); // 안전을 위해 null 처리하는 것을 추천하지만, 이 필드는 이미 DTO에서 제거됨
-                session.setAttribute("loginUserInfo", loginUserInfo);*//*
-                redirectAttributes.addFlashAttribute("error", "로그인 성공! 환영합니다:)");
-                return "redirect:/";
-            } else {
-                redirectAttributes.addFlashAttribute("error", "로그인 실패: 비밀번호가 잘못되었습니다.");
-                return "redirect:/user/login";
-            }
-        } else {
-            redirectAttributes.addFlashAttribute("error", "로그인 실패: 아이디가 잘못되었습니다.");
-            return "redirect:/user/login";
-        }
-    } MVC패턴 / 보안상의 문제로 해당 코드 권장하지 않음.  */
-
-    @GetMapping("/user/loginError")
+    @GetMapping("/loginError")
     public String loginError(RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("error", "로그인이 필요한 서비스입니다.");
         return "redirect:/user/login";
     }
 
-    @GetMapping("/user/register")
+    @GetMapping("/register")
     public String registerForm() {return "register"; } //회원가입 페이지 이동
 
-    @PostMapping("/user/register")
+    @PostMapping("/register")
     public String registering(@ModelAttribute UserDTO userDTO,
                               @RequestParam("userPw") String userPw,
-                              @RequestParam("userPwConfirm") String userPwConfirm,
+                              @RequestParam("userPwCheck") String userPwCheck,
                               RedirectAttributes redirectAttributes) {
-        if(userPw.equals(userPwConfirm)){
+        if(userPw.equals(userPwCheck)){
             userService.save(userDTO);
         }
         else {
-            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+            redirectAttributes.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
             return "redirect:/user/register";
         }
         return "redirect:/user/registerSuccess";
     } // 회원가입 중 비밀번호 비밀번호 확인이 같은 경우에만 회원가입 진행
 
-    @PostMapping("/user/idCheck")
+    @PostMapping("/idCheck")
     @ResponseBody
     public ResponseEntity<?> idCheck(@RequestBody Map<String, String> payload) {
         String userId = payload.get("userId");
@@ -119,7 +83,7 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
-    @PostMapping("/user/phoneCheck")
+    @PostMapping("/phoneCheck")
     @ResponseBody
     public ResponseEntity<?> phoneCheck(@RequestBody Map<String, String> payload) {
         String userPhone = payload.get("userPhone");
@@ -148,20 +112,20 @@ public class UserController {
     public String phoneCheck(@RequestParam("userPhone") String userPhone) {
         return userService.phoneCheck(userPhone);
     }// 이미 있는 전화번호의 경우 등록하지 않도록 함*/
-    @GetMapping("/user/registerSuccess")
+    @GetMapping("/registerSuccess")
     public String registerSuccess(RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("error", "회원가입에 성공했습니다.\n로그인 페이지로 이동합니다.");
         return "redirect:/user/login";
     }
 
-    @GetMapping("/user/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); //세션삭제
         System.out.println("로그아웃하였습니다.");
         return "redirect:/";
     }
 
-    @GetMapping("/user/mypage")
+    @GetMapping("/mypage")
     public String mypage(HttpSession session, Model model){
         String loginUser = (String) session.getAttribute("loginUser");
         //세션에서 로그인 정보 가져옴
@@ -172,21 +136,18 @@ public class UserController {
         return "mypage";
     }
 
-    @PostMapping("/user/update")
+    @PutMapping("/update")
     public String updateUser(@ModelAttribute("userDTO") UserDTO userDTO,
                              RedirectAttributes redirectAttributes){
         userService.updateUser(userDTO);
         redirectAttributes.addFlashAttribute("error", "회원정보 수정이 되었습니다..");
         return "redirect:/user/mypage";
     }
-
-    @GetMapping("/user/delete")
-    public String deleteUser(HttpSession session,
-                             RedirectAttributes redirectAttributes){
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUser(HttpSession session){
         String loginUser = (String) session.getAttribute("loginUser");
         userService.deleteUser(loginUser);
         session.invalidate();
-        redirectAttributes.addFlashAttribute("error", "회원탈퇴 되었습니다..");
-        return "redirect:/";
+        return ResponseEntity.ok().build(); // 성공 상태 코드 200 반환, 본문은 비워짐
     }
 }

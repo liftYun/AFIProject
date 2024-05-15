@@ -79,3 +79,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+function pwCheck(){
+    if($('#userPw').val() === $('#userPwCheck').val()){
+        $('#pwConfirm').text('비밀번호 일치').css('color', 'green')
+    }else {
+        $('#pwConfirm').text('비밀번호 불일치').css('color', 'red')
+    }
+}

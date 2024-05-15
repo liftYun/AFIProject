@@ -6,6 +6,7 @@
 </head>
 <body>
 <form action="/user/update" method="post">
+    <input type="hidden" name="_method" value="put" /> <!-- PUT 메소드 사용을 위한 hidden 필드 추가 -->
     <div>
         <label for="userId">아이디</label>
         <input type="text" id="userId" name="userId" th:value="${loginUserDTO.getUserId()}" disabled>
@@ -32,9 +33,28 @@
     </div>
     <div>
         <button type="submit">회원정보 수정</button>
-        <button><a href="/user/delete">회원 탈퇴하기</a></button>
+<!--        <button><a href="/user/delete">회원 탈퇴하기</a></button>-->
+        <!-- 회원 탈퇴 버튼을 JavaScript를 사용하여 DELETE 요청을 보내는 버튼으로 변경 -->
     </div>
 </form>
+<button type="button" id="deleteUser">회원 탈퇴하기</button>
+<script th:inline="javascript">
+    document.getElementById('deleteUser').addEventListener('click', function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("DELETE", "/user/delete", true);
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // 성공적으로 회원 탈퇴 처리가 되면, 홈 페이지로 리다이렉트
+                alert("회원 탈퇴가 성공적으로 처리되었습니다.");
+                window.location.href = '/';
+            } else {
+                // 에러 처리
+                alert("회원 탈퇴 요청 중 오류가 발생했습니다.");
+            }
+        };
+        xhr.send();
+    });
+</script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var error = [[${error}]];

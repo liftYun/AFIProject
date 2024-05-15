@@ -17,14 +17,15 @@
     </div>
     <div>
         <label for="userPw">비밀번호</label><br>
-        <input type="password" id="userPw" name="userPw" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&_=~|\\/?:;.])[a-zA-Z0-9!@#$%^&_=~|\\/?:;.]{8,20}$" placeholder="비밀번호를 입력하세요" required><br>
+        <input type="password" id="userPw" name="userPw" oninput="pwCheck()" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&_=~|\\/?:;.])[a-zA-Z0-9!@#$%^&_=~|\\/?:;.]{8,20}$" placeholder="비밀번호를 입력하세요" required><br>
         <small>! @ $ % ^ & _ = ~ | \ / ? : ; . 영어 대소문자와 숫자를 사용하여 8자 이상, 20자 이하로 입력해 주세요.</small>
     </div>
     <div>
-        <label for="userPwConfirm">비밀번호 확인</label><br>
-        <input type="password" class="form form__input"  id="userPwConfirm" name="userPwConfirm" onblur="phoneCheck()" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&_=~|\\/?:;.])[a-zA-Z0-9!@#$%^&_=~|\\/?:;.]{8,20}$" placeholder="비밀번호 확인이 필요합니다" required><br>
+        <label for="userPwCheck">비밀번호 확인</label><br>
+        <input type="password" id="userPwCheck" name="userPwCheck" oninput="pwCheck()" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&_=~|\\/?:;.])[a-zA-Z0-9!@#$%^&_=~|\\/?:;.]{8,20}$" placeholder="비밀번호 확인이 필요합니다" required><br>
         <small>! @ $ % ^ & _ = ~ | \ / ? : ; . 영어 대소문자와 숫자를 사용하여 8자 이상, 20자 이하로 입력해 주세요.</small>
     </div>
+    <span id="pwConfirm">-----------</span>
     <div>
         <label for="userPhone">전화번호</label>
         <input type="tel" id="userPhone" name="userPhone" pattern="[0-9]{11}" placeholder="'-'를 제외하고 입력하세요" required>
@@ -47,5 +48,13 @@
     </div>
 </form>
 <script type="text/javascript" src="/js/registerScript.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var error = [[${error}]];
+    if (error != null && error !== '') {
+        alert(error);
+    }
+    /*]]>*/
+</script>
 </body>
 </html>

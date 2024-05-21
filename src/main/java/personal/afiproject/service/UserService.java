@@ -70,24 +70,6 @@ public class UserService {
         userRepository.deleteByUserId(loginUser);
     }
 
-    public String idCheck(String userId) {
-        System.out.println("Service");
-        if (userRepository.existsByUserId(userId)) {
-            return "duplicate";
-        } else {
-            return "ok";
-        }
-        //Repository로 부터 받은 값에 따라 duplicate, ok를 반환한다.
-    }
-
-    public String phoneCheck(String userPhone) {
-        if (userRepository.existsByUserPhone(userPhone)) {
-            return "duplicate";
-        } else {
-            return "ok";
-        }
-    }
-
     public boolean existsByUserId(String userId) {
         return userRepository.existsByUserId(userId);
     }
@@ -96,27 +78,4 @@ public class UserService {
         return userRepository.existsByUserPhone(userPhone);
     }
 
-
-    /*public UserDTO login(UserDTO userDTO) {
-        Optional<UserEntity> userID = userRepository.findById(userDTO.getUserId());
-        System.out.println("UserService : " + userDTO.getUserId() + " / " + userDTO.getUserPw());
-
-        if (userID.isPresent()) {
-            UserEntity userEntity = userID.get();
-            String hashedUserPw = userEntity.getUserPw();
-            //해싱되어 저장된 비번을 불러옴.
-
-            String inputPw = userDTO.getUserPw();
-            //입력 받은 비밀번호
-
-            if (BCrypt.checkpw(inputPw, hashedUserPw)) {
-                UserDTO loginUserDto = UserDTO.toUserDTO(userEntity);
-                return loginUserDto;
-            } else {
-                return  null;
-            }
-        } else {
-            return null;
-        }
-    }*/
 }

@@ -99,19 +99,6 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
-
-    /*@PostMapping("/user/idCheck")
-    @ResponseBody // ajax를 쓸 때 컨트롤러에서 반환되는 값을 html에 보내기 위한 용도로 사용된(body에 직접적으로 값을 포함해야한다는 의미)
-    public String idCheck(@RequestParam("userId") String userId) { // ajax로 부터 userId를 받아서 서비스에 넘기며 로직을 요청한다
-        System.out.println("Controller");
-        return userService.idCheck(userId);
-    }// 이미 있는 아이디의 경우 등록하지 않도록 함*/
-
-    /*@PostMapping("/user/phoneCheck")
-    @ResponseBody
-    public String phoneCheck(@RequestParam("userPhone") String userPhone) {
-        return userService.phoneCheck(userPhone);
-    }// 이미 있는 전화번호의 경우 등록하지 않도록 함*/
     @GetMapping("/registerSuccess")
     public String registerSuccess(RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("error", "회원가입에 성공했습니다.\n로그인 페이지로 이동합니다.");

@@ -28,3 +28,6 @@ spring:
       filter:
         enabled: true
         param-name: _method
+
+  jwt:
+    secret_key: 92b39c2594473f5996e886637416c2d8d50a24d91e5b22158e9e259184994c4334f60f1f08a280fc3171f7fe5cd9e954a71f32602384b08cacd15b480429f3a0

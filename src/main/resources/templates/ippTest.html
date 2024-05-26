@@ -5,7 +5,16 @@
     <title>Inverstment Propencity</title>
 </head>
 <body>
-<form action="/afi/ippAsk" method="post">
+<script type="text/javascript">
+    // 세션에 저장된 loginUser 데이터 확인
+    const loginUser = sessionStorage.getItem('loginUser');
+
+    // 로그인 데이터가 없으면 로그인 페이지로 이동
+    if (!loginUser) {
+        location.href = '/user/loginError'; // 로그인 페이지 URL
+    }
+</script>
+<form action="/afi/ippRegist" method="post">
     <div>
         <label for="user_age"><strong>1. 연령대 : </strong></label>
             <input id="user_age" type="number"  min="1" max="120" value="25" required>

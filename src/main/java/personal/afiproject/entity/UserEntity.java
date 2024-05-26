@@ -12,9 +12,20 @@ public class UserEntity {
     private String userId;
     private String userName;
     private String userPw;
+    private String userEmail;
     private String userPhone;
     private String userBirthday;
     private String userGender;
+
+    public int getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(int userRole) {
+        this.userRole = userRole;
+    }
+
+    private int userRole;
 
     public String getId() {
         return id;
@@ -47,7 +58,13 @@ public class UserEntity {
     public void setUserPw(String userPw) {
         this.userPw = userPw;
     }
+    public String getUserEmail() {
+        return userEmail;
+    }
 
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
     public String getUserPhone() {
         return userPhone;
     }
@@ -78,9 +95,11 @@ public class UserEntity {
         userEntity.setUserId(dto.getUserId());
         userEntity.setUserName(dto.getUserName());
         userEntity.setUserPw(dto.getUserPw());
+        userEntity.setUserEmail(dto.getUserEmail());
         userEntity.setUserPhone(dto.getUserPhone());
         userEntity.setUserBirthday(dto.getUserBirthday());
         userEntity.setUserGender(dto.getUserGender());
+        userEntity.setUserRole(dto.getUserRole());
         return userEntity;
     }
 }

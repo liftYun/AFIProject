@@ -16,10 +16,12 @@ public class UserDTO {
 
     private String userId;
     private String userPw;
+    private String userEmail;
     private String userName;
     private String userPhone;
     private String userBirthday;
     private String userGender;
+    private int userRole = 1;
 
     public static UserDTO toUserDTO(UserEntity userEntity){
 
@@ -27,10 +29,12 @@ public class UserDTO {
 
         userDTO.setUserId(userEntity.getUserId());
         userDTO.setUserPw(userEntity.getUserPw());
+        userDTO.setUserEmail(userEntity.getUserEmail());
         userDTO.setUserName(userEntity.getUserName());
         userDTO.setUserPhone(userEntity.getUserPhone());
         userDTO.setUserBirthday(userEntity.getUserBirthday());
         userDTO.setUserGender(userEntity.getUserGender());
+        userDTO.setUserRole(userEntity.getUserRole());
 
         return userDTO;
 

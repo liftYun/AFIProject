@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>AFI_main</title>
+    <script type="text/css" src="/css/style.css"></script>
 </head>
 <body>
 <div>
     <h2>당신의 투자성향을 체크해보세요!</h2>
+    <nav>
 
+    </nav>
     <div th:if="${loginUser == null}">
         <span><a href="/user/login">로그인</a></span>
         <span><a href="/user/register">회원가입</a></span>
-        <span><a href="/user/loginError">투자성향 체크</a></span>
-        <span><a href="/user/loginError">투자상품 추천</a></span>
     </div>
     <div th:if="${loginUser != null}">
         <span><a href="/user/logout">로그아웃</a></span>
-        <span><a href="/afi/ippTest">투자성향 체크</a></span>
-        <span><a href="/afi/recoP">투자상품 추천</a></span>
         <span><a href="/user/mypage">마이페이지</a></span>
     </div>
+    <span><a href="/afi/ippTest">투자성향 체크</a></span>
+    <span><a href="/afi/recoP">투자상품 추천</a></span>
 </div>
 <script th:inline="javascript">
     /*<![CDATA[*/

@@ -30,9 +30,8 @@ public class UserController {
                         HttpSession session,
                         RedirectAttributes redirectAttributes) {
         UserDTO loginResult = userService.login(userDTO);
-
         if(loginResult != null) {
-            session.setAttribute("loginUser", loginResult.getUserId());
+            session.setAttribute("loginUser",  loginResult.getUserId());
             System.out.println("로그인 성공: 사용자 " + loginResult.getUserId() + "으로 로그인하였습니다.");
             redirectAttributes.addFlashAttribute("error", "로그인 성공! 환영합니다:)");
             return "redirect:/"; // 로그인 성공 시 메인 페이지로 리다이렉트
